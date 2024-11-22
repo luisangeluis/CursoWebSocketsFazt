@@ -1,11 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sockets crud</title>
-</head>
-<body>
-    <h1>App</h1>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sockets crud</title>
+    </head>
+    <body>
+        <form id="noteForm">
+            <input id="title" type="text" />
+            <textarea id="description" rows="3"></textarea>
+            <button>Send</button>
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="./main.js" type="module"></script>
+    </body>
 </html>
