@@ -2,7 +2,7 @@ import app, { test } from "./app";
 import { Server as WebsocketServer } from "socket.io";
 import http from "http";
 import { connectDB } from "./db";
-import sockets from "./sockets";
+import sockets from "./sockets.server";
 
 connectDB();
 
