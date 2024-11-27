@@ -1,8 +1,8 @@
 import { loadNotes, onNewNote } from "./sockets.client.js";
 import { appendNote, onHandleSubmit, renderNotes } from "./ui.js";
 
-onNewNote(appendNote);
 loadNotes(renderNotes);
+onNewNote(appendNote);
 
 const noteForm = document.querySelector("#noteForm");
 

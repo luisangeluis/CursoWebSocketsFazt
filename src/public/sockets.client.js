@@ -11,3 +11,11 @@ export const saveNote = (title, description) => {
 export const onNewNote = (callback) => {
   socket.on("server:newnote", callback);
 };
+
+export const deleteNote = (id) => {
+  socket.emit("client:deleteNote", id);
+};
+
+export const updateNote = (note) => {
+  socket.emit("client:updateNote", id);
+};
