@@ -1,6 +1,8 @@
-import { deleteNote, saveNote } from "./sockets.client.js";
+import { deleteNote, getNote, saveNote } from "./sockets.client.js";
 
 const notesSection = document.querySelector("#notesSection");
+const title = document.querySelector("#title");
+const description = document.querySelector("#description");
 
 const noteUI = (note) => {
   const article = document.createElement("article");
@@ -9,7 +11,7 @@ const noteUI = (note) => {
     <h2>${note.title}</h2>
     <div>
       <button class="delete" data-id="${note._id}">Delete</button>
-      <button class="update" data-note="${note}">Update</button>
+      <button class="update" data-id="${note._id}">Update</button>
     </div>
     <p>${note.description}</p>
   `;
@@ -18,7 +20,7 @@ const noteUI = (note) => {
   const btnUpdate = article.querySelector(".update");
 
   btnDelete.addEventListener("click", () => deleteNote(btnDelete.dataset.id));
-  btnUpdate.addEventListener("click", () => console.log(btnDelete.dataset.id));
+  btnUpdate.addEventListener("click", () => getNote(btnUpdate.dataset.id));
 
   return article;
 };
@@ -28,6 +30,11 @@ export const renderNotes = (notes) => {
   notes.forEach((note) => notesSection.append(noteUI(note)));
 };
 
+export const fillForm = (note) => {
+  title.value = note.title;
+  description.value = note.description;
+};
+
 export const appendNote = (note) => {
   notesSection.append(noteUI(note));
 };
@@ -35,9 +42,5 @@ export const appendNote = (note) => {
 export const onHandleSubmit = (e) => {
   e.preventDefault();
 
-  saveNote(noteForm["title"].value, noteForm["description"].value);
-};
-
-export const onHandleDeleteNote = () => {
-  deleteNote();
+  saveNote(title.value, description.value);
 };

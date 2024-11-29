@@ -2,12 +2,12 @@ import Note from "./models/Note";
 
 export default (io) => {
   io.on("connection", (socket) => {
-    const emitNoTes = async () => {
+    const emitNotes = async () => {
       const notes = await Note.find();
       io.emit("server:loadnotes", notes);
     };
 
-    emitNoTes();
+    emitNotes();
 
     socket.on("client:newnote", async (data) => {
       const newNote = new Note(data);
@@ -19,14 +19,14 @@ export default (io) => {
 
     socket.on("client:deleteNote", async (id) => {
       await Note.findByIdAndDelete(id);
-      emitNoTes();
+      emitNotes();
     });
 
-    socket.on("client:updateNote",async(note)=>{
-      const {_id,...restOfnote} = note;
-      const updatedNote = Note.findByIdAndUpdate(_id, restOfnote);
+    socket.on("client:getnote", async (id) => {
+      const note = await Note.findById(id);
+      console.log(note);
 
-      emitNotes();
-    })
+      socket.emit("server:selectednote", note);
+    });
   });
 };
