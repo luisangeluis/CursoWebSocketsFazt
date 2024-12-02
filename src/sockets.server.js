@@ -28,5 +28,13 @@ export default (io) => {
 
       socket.emit("server:selectednote", note);
     });
+
+    socket.on("client:updateNote", async (updatedNote) => {
+      await Note.findByIdAndUpdate(updatedNote._id, {
+        title: updatedNote.title,
+        description: updatedNote.description,
+      });
+      emitNotes();
+    });
   });
 };

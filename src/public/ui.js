@@ -1,8 +1,10 @@
-import { deleteNote, getNote, saveNote } from "./sockets.client.js";
+import { deleteNote, getNote, saveNote, updateNote } from "./sockets.client.js";
 
 const notesSection = document.querySelector("#notesSection");
 const title = document.querySelector("#title");
 const description = document.querySelector("#description");
+
+let savedId = "";
 
 const noteUI = (note) => {
   const article = document.createElement("article");
@@ -33,6 +35,7 @@ export const renderNotes = (notes) => {
 export const fillForm = (note) => {
   title.value = note.title;
   description.value = note.description;
+  savedId = note._id;
 };
 
 export const appendNote = (note) => {
@@ -42,5 +45,13 @@ export const appendNote = (note) => {
 export const onHandleSubmit = (e) => {
   e.preventDefault();
 
-  saveNote(title.value, description.value);
+  if (savedId) {
+    updateNote(savedId, title.value, description.value);
+  } else {
+    saveNote(title.value, description.value);
+  }
+
+  title.value = "";
+  description.value = "";
+  savedId = "";
 };
