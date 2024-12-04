@@ -12,6 +12,7 @@ export default (io) => {
     socket.on("client:newnote", async (data) => {
       const newNote = new Note(data);
       const savedNote = await newNote.save();
+      console.log(socket.id);
 
       //socket.emit en el caso de abajo manda los cambios solo a la ventana que le envió el dato
       io.emit("server:newnote", savedNote);

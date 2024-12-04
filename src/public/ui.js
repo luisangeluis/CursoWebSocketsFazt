@@ -8,12 +8,23 @@ let savedId = "";
 
 const noteUI = (note) => {
   const article = document.createElement("article");
+  article.classList.add(
+    "card",
+    "card-body",
+    "rounded-0",
+    "mb-2",
+    "animate__animated",
+    "animate__fadeInUp",
+  );
 
   article.innerHTML = `
-    <h2>${note.title}</h2>
-    <div>
-      <button class="delete" data-id="${note._id}">Delete</button>
-      <button class="update" data-id="${note._id}">Update</button>
+    <div class="d-flex justify-content-between">
+      <h2>${note.title}</h2>
+      <div>
+      <button class="btn btn-danger btn-sm delete" data-id="${note._id}">Delete</button>
+      <button class="btn btn-secondary btn-sm update" data-id="${note._id}">Update</button>
+    </div>
+    
     </div>
     <p>${note.description}</p>
   `;
